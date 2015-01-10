@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Company.SolutionEventsMonitor.MyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:solutionEventsMonitor="clr-namespace:Company.SolutionEventsMonitor"
+             Background="{DynamicResource VsBrush.Window}"
+             Foreground="{DynamicResource VsBrush.WindowText}"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             Name="MyToolWindow">
+    <UserControl.Resources>
+        <solutionEventsMonitor:CurrentDateTime x:Key="liveDateTime" />
+    </UserControl.Resources>
+    <DockPanel>
+        <ListBox ItemsSource="{Binding EventsList}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Now, Source={StaticResource liveDateTime}, StringFormat={}{0:HH:MM:ss}}" Margin="5,0" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding}"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Clear" Command="{Binding ClearCommand}"></MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </DockPanel>
+</UserControl>
